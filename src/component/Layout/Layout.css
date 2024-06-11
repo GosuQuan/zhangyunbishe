@@ -1,0 +1,44 @@
+.custom-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* 假设我们想要布局占据整个视口高度 */
+  overflow: auto;
+  /* 如果内容超出视口，则出现滚动条 */
+}
+.custom-header {
+  /* Header样式 */
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: center;
+}
+.custom-footer {
+  /* Footer样式 */
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: center;
+}
+.custom-layout-body {
+  flex: 1;
+  /* 占据剩余空间 */
+  display: flex;
+}
+.custom-layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+.custom-sider {
+  /* Sider样式 */
+  background-color: #e9ecef;
+  flex-shrink: 0;
+  /* 防止Sider收缩 */
+}
+.custom-content {
+  /* Content样式 */
+  flex: 1;
+  /* 占据除Sider外的所有空间 */
+  padding: 20px;
+  /* 内容区域的内边距 */
+  /* 可以添加更多样式，如背景色、字体等 */
+}
