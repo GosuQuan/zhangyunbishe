@@ -3,12 +3,6 @@ import { Space, Table, Tag , Input ,Button} from 'antd';
 const { Column, ColumnGroup } = Table;
 
 
-
-
-
-
-
-
 export default function People() {
 
   const data = [

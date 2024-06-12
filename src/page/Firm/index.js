@@ -1,7 +1,11 @@
 import React from 'react'
 import { Space, Table, Tag , Input,Button } from 'antd';
 const { Column, ColumnGroup } = Table;
-
+// import axios from "axios"
+const api = {
+}
+// const data  = axios.get(api).then(res => res.data);
+// console.log(data)
 
 export default function Firm() {
   const data = [
