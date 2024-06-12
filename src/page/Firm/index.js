@@ -10,7 +10,7 @@ export default function Firm() {
   // const [editMode,setEditMode] =  useState(f)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
-  const [formData, setFormData] = useState({})
+  const [data,setData] =  useState(companyData);
   const [searchParam, setSearchParam] = useState('')
   const showModal = (record) => {
     setIsModalOpen(true);
@@ -50,26 +50,26 @@ export default function Firm() {
     setSearchParam(e.target.value)
   }
   const handleSearch = async () => {
-    console.log(searchParam)
-     await searchCompany(searchParam)
+     const filterData = await searchCompany(searchParam)
+      setData(filterData);
     
   }
-  const data = [
-    {
-      id: '0011',
-      '公司名': '1号公司',
-      '上级公司编号': '00',
-      "创建时间": '20130912',
-      "修改时间": '20200913',
-    }, {
-      id: '0012',
-      '公司名': '2号公司',
-      '上级公司编号': '00',
-      "创建时间": '20130912',
-      "修改时间": '20200913',
-    }
+  // const data = [
+  //   {
+  //     id: '0011',
+  //     '公司名': '1号公司',
+  //     '上级公司编号': '00',
+  //     "创建时间": '20130912',
+  //     "修改时间": '20200913',
+  //   }, {
+  //     id: '0012',
+  //     '公司名': '2号公司',
+  //     '上级公司编号': '00',
+  //     "创建时间": '20130912',
+  //     "修改时间": '20200913',
+  //   }
 
-  ];
+  // ];
   return (
     <div>
       <Input size="large" placeholder="搜索" style={{ width: '300px', marginBottom: '15px' }} onChange={(e) => {
