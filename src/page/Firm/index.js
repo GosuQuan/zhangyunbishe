@@ -1,17 +1,22 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Space, Table, Tag, Input, Button, Modal, Form } from 'antd';
 import { companySelect, companyDelete } from '../../api/company'
-
+import Password from 'antd/es/input/Password';
+const companyData = await companySelect()
 export default function Firm() {
   const { Column, ColumnGroup } = Table;
-  const companyData = companySelect()
-  // const [form] =  Form.useForm()
+
+  const [form] = Form.useForm()
   // const [editMode,setEditMode] =  useState(f)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
+  const showModal = (record) => {
     setIsModalOpen(true);
+    form.setFieldsValue({
+      ...companyData
+    });
   };
   const handleOk = () => {
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -59,9 +64,10 @@ export default function Firm() {
           render={(_, record) => (
             <Space size="middle">
               <Button danger onClick={() => handleDelete(record)}>删除</Button>
-              <Button type="primary" onClick={showModal}>修改</Button>
+              <Button type="primary" onClick={() => showModal(record)}>修改</Button>
               <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <Form 
+                <Form
+                  form={form}
                   name="basic"
                   labelCol={{
                     span: 8,
@@ -72,15 +78,12 @@ export default function Firm() {
                   style={{
                     maxWidth: 600,
                   }}
-                  initialValues={{
-                    
-                    remember: true,
-                  }}
+
                   autoComplete="off"
                 >
-                  <Form.Item 
-                    label="Username"
-                    name="username"
+                  <Form.Item
+                    label="公司名称"
+                    name="companyName"
                     rules={[
                       {
                         required: true,
@@ -91,25 +94,51 @@ export default function Firm() {
                     <Input />
                   </Form.Item>
                   <Form.Item
-                    label="Password"
-                    name="password"
+                    label="上级公司编号"
+                    name="parentId"
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your password!',
+                        message: 'Please input your username!',
                       },
                     ]}
                   >
-                    <Input.Password />
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label="公司简述"
+                    name="description"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your username!',
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label="层级"
+                    name="level"
+
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label="类型"
+                    name="type"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input type!',
+                      },
+                    ]}
+                  >
+                    <Input />
                   </Form.Item>
 
-                  <Form.Item
-                    wrapperCol={{
-                      offset: 8,
-                      span: 16,
-                    }}
-                  >
-                  </Form.Item>
+
+
                 </Form>
               </Modal>
             </Space>
