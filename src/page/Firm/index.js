@@ -1,15 +1,21 @@
-import React from 'react'
-import { Space, Table, Tag , Input,Button } from 'antd';
-import {companySelect} from '../../api/company'
-const { Column, ColumnGroup } = Table;
-// import axios from "axios"
-const companyData = companySelect()
-
-
-// const data  = axios.get(api).then(res => res.data);
-// console.log(data)
+import React, { useState } from 'react'
+import { Space, Table, Tag, Input, Button, Modal } from 'antd';
+import { companySelect } from '../../api/company'
 
 export default function Firm() {
+  const { Column, ColumnGroup } = Table;
+  const companyData = companySelect()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const data = [
     {
       id: '0011',
@@ -17,7 +23,7 @@ export default function Firm() {
       '上级公司编号': '00',
       "创建时间": '20130912',
       "修改时间": '20200913',
-    },{
+    }, {
       id: '0012',
       '公司名': '2号公司',
       '上级公司编号': '00',
@@ -29,9 +35,9 @@ export default function Firm() {
   return (
     <div>
       <Input size="large" placeholder="搜索" style={{ width: '300px', marginBottom: '15px' }} />
-      <Button type='default' style={{height:'39.6px'}}>🔍搜索</Button>
-      <Button type='primary' style={{height:'39.6px',marginLeft:'100px'}}>新增</Button>
-    {/* TestingAPi: 将 dataSource = {data} 替换成 dataSource = {companyData} */}
+      <Button type='default' style={{ height: '39.6px' }}>🔍搜索</Button>
+      <Button type='primary' style={{ height: '39.6px', marginLeft: '100px' }}>新增</Button>
+      {/* TestingAPi: 将 dataSource = {data} 替换成 dataSource = {companyData} */}
       <Table dataSource={data}
         pagination={{}}
       >
@@ -46,8 +52,13 @@ export default function Firm() {
           key="action"
           render={(_, record) => (
             <Space size="middle">
-              <a tyle={{color:'red'}}>删除</a>
-              <a>修改</a>
+              <Button danger>删除</Button>
+              <Button  type="primary"onClick={setIsModalOpen}>修改</Button>
+              <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+              </Modal>
             </Space>
           )}
         />

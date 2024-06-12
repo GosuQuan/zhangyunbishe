@@ -21,7 +21,7 @@ function App() {
           <Route element={<Firm />} path='firm'></Route>
           <Route element={<Analysis></Analysis>} path='analysis'></Route>
           </Route>
-
+-
           <Route element={<Login />} path='/login'></Route>
       </Routes>
     </div>
