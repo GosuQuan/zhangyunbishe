@@ -15,7 +15,7 @@ function App() {
         <Route element={<Navigate to="/login" />} path='/'></Route>
 
         <Route element={<Home />} path='/home'>
-          <Route element={<Navigate to="violation" />} path=''></Route>
+          <Route element={<Navigate to="firm" />} path=''></Route>
           <Route element={<People />} path='people'></Route>
           <Route element={<Violation />} path='violation'></Route>
           <Route element={<Firm />} path='firm'></Route>

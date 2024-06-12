@@ -65,7 +65,7 @@ export default function Home() {
 
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['3']} mode="inline"
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline"
           items={items}
           onSelect={clickMenu}
         />
