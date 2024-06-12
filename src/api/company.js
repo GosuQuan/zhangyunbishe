@@ -16,3 +16,11 @@ export const companySelect = async() => {
     const data = await axios.get(baseURL + "company/list").then(res=>res.data).catch(err => console.log(err))
     return data
 }
+export const searchCompany = async (param) => {
+    if(!param){return companySelect()}
+    let data = await axios.get(baseURL + "company/list?id=" + param).then(res => res.data).catch(err => console.log(err))
+    if(!data){
+        data =  await axios.get(baseURL + "company/list?companyName=" + param).then(res => res.data).catch(err => console.log(err))
+    }
+    return data;
+}

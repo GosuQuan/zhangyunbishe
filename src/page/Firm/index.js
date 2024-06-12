@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Space, Table, Tag, Input, Button, Modal, Form } from 'antd';
-import { companySelect, companyDelete,companyUpdate, companyInsert } from '../../api/company'
+import { companySelect, companyDelete, companyUpdate, companyInsert,searchCompany } from '../../api/company'
 const companyData = await companySelect()
 export default function Firm() {
   const { Column, ColumnGroup } = Table;
@@ -10,8 +10,8 @@ export default function Firm() {
   // const [editMode,setEditMode] =  useState(f)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
-  const [formData,setFormData] = useState({})
-  
+  const [formData, setFormData] = useState({})
+  const [searchParam, setSearchParam] = useState('')
   const showModal = (record) => {
     setIsModalOpen(true);
     form.setFieldsValue({
@@ -21,9 +21,9 @@ export default function Firm() {
   const showRegisterModal = () => {
     setRegisterModalOpen(true);
   }
-  const handleRegisterOk = async() => {
+  const handleRegisterOk = async () => {
     const value = registerForm.getFieldValue();
-    await companyInsert(value)    
+    await companyInsert(value)
     setRegisterModalOpen(false);
     registerForm.resetFields();
   }
@@ -31,11 +31,11 @@ export default function Firm() {
     setRegisterModalOpen(false);
   }
 
-  const handleOk = async() => {
+  const handleOk = async () => {
     const value = form.getFieldValue();
     const id = form.getFieldValue('id')
-    const formdata = {id,...value}
-     await companyUpdate(formdata)
+    const formdata = { id, ...value }
+    await companyUpdate(formdata)
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -46,8 +46,14 @@ export default function Firm() {
     // console.log(record.id)
     companyDelete(record.id)
   }
-  
-  
+  const handleOnchange = (e) => {
+    setSearchParam(e.target.value)
+  }
+  const handleSearch = async () => {
+    console.log(searchParam)
+     await searchCompany(searchParam)
+    
+  }
   const data = [
     {
       id: '0011',
@@ -66,12 +72,14 @@ export default function Firm() {
   ];
   return (
     <div>
-      <Input size="large" placeholder="搜索" style={{ width: '300px', marginBottom: '15px' }} />
-      <Button type='default' style={{ height: '39.6px' }}>🔍搜索</Button>
+      <Input size="large" placeholder="搜索" style={{ width: '300px', marginBottom: '15px' }} onChange={(e) => {
+        handleOnchange(e)
+      }} />
+      <Button type='default' style={{ height: '39.6px' }} onClick={handleSearch}>🔍搜索</Button>
       <Button type='primary' style={{ height: '39.6px', marginLeft: '100px' }} onClick={showRegisterModal}>新增</Button>
-      <Modal title="新增公司违章分析"open={registerModalOpen} onOk={handleRegisterOk} onCancel={handleRegisterCancel}>
+      <Modal title="新增公司违章分析" open={registerModalOpen} onOk={handleRegisterOk} onCancel={handleRegisterCancel}>
         <Form
-         form={registerForm}
+          form={registerForm}
           name="basic"
           labelCol={{
             span: 8,
@@ -85,6 +93,18 @@ export default function Firm() {
 
           autoComplete="off"
         >
+          <Form.Item
+            label="新增id"
+            name="id"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your id!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           <Form.Item
             label="公司名称"
             name="companyName"
