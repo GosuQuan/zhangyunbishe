@@ -7,14 +7,9 @@ export default function Firm() {
   const companyData = companySelect()
   // const [form] =  Form.useForm()
   // const [editMode,setEditMode] =  useState(f)
-  const [formData,setFormData] = useState({
-    username:"123",
-    password:"123",
-  })
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = (record) => {
+  const showModal = () => {
     setIsModalOpen(true);
-    setFormData({username:record.id,password:record.password})
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -27,7 +22,6 @@ export default function Firm() {
     // console.log(record.id)
     companyDelete(record.id)
   }
-  const companyField = useState()
   const data = [
     {
       id: '0011',
@@ -65,7 +59,7 @@ export default function Firm() {
           render={(_, record) => (
             <Space size="middle">
               <Button danger onClick={() => handleDelete(record)}>删除</Button>
-              <Button type="primary" onClick={()=>showModal(record)}>修改</Button>
+              <Button type="primary" onClick={showModal}>修改</Button>
               <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Form 
                   name="basic"
@@ -94,7 +88,7 @@ export default function Firm() {
                       },
                     ]}
                   >
-                    <Input value={formData.username} />
+                    <Input />
                   </Form.Item>
                   <Form.Item
                     label="Password"
