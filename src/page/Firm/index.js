@@ -23,16 +23,19 @@ export default function Firm() {
   }
   const handleRegisterOk = async() => {
     const value = registerForm.getFieldValue();
-    await companyUpdate(value)    
+    await companyInsert(value)    
     setRegisterModalOpen(false);
     registerForm.resetFields();
   }
   const handleRegisterCancel = () => {
-
     setRegisterModalOpen(false);
   }
 
-  const handleOk = () => {
+  const handleOk = async() => {
+    const value = form.getFieldValue();
+    const id = form.getFieldValue('id')
+    const formdata = {id,...value}
+     await companyUpdate(formdata)
     setIsModalOpen(false);
   };
   const handleCancel = () => {
