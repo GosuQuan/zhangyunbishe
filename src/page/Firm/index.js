@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
-import { Space, Table, Tag, Input, Button, Modal } from 'antd';
-import { companySelect } from '../../api/company'
+import React, { useState,useEffect } from 'react'
+import { Space, Table, Tag, Input, Button, Modal, Form } from 'antd';
+import { companySelect, companyDelete } from '../../api/company'
 
 export default function Firm() {
   const { Column, ColumnGroup } = Table;
   const companyData = companySelect()
+  // const [form] =  Form.useForm()
+  // const [editMode,setEditMode] =  useState(f)
+  const [formData,setFormData] = useState({
+    username:"123",
+    password:"123",
+  })
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
+  const showModal = (record) => {
     setIsModalOpen(true);
+    setFormData({username:record.id,password:record.password})
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -15,7 +22,12 @@ export default function Firm() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  const handleDelete = (record) => {
+    console.log(record)
+    // console.log(record.id)
+    companyDelete(record.id)
+  }
+  const companyField = useState()
   const data = [
     {
       id: '0011',
@@ -42,7 +54,7 @@ export default function Firm() {
         pagination={{}}
       >
         <Column title="id" dataIndex='id' key="id" />
-        <Column title="公司名" dataIndex='companyname' key="companyname" />
+        <Column title="公司名" dataIndex='companyName' key="companyName" />
         <Column title="上级公司编号" dataIndex='parentId' key="parentId" />
         <Column title="公司简述" dataIndex='description' key="description" />
         <Column title="层级" dataIndex='level' key="level" />
@@ -52,12 +64,59 @@ export default function Firm() {
           key="action"
           render={(_, record) => (
             <Space size="middle">
-              <Button danger>删除</Button>
-              <Button  type="primary"onClick={setIsModalOpen}>修改</Button>
+              <Button danger onClick={() => handleDelete(record)}>删除</Button>
+              <Button type="primary" onClick={()=>showModal(record)}>修改</Button>
               <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <Form 
+                  name="basic"
+                  labelCol={{
+                    span: 8,
+                  }}
+                  wrapperCol={{
+                    span: 16,
+                  }}
+                  style={{
+                    maxWidth: 600,
+                  }}
+                  initialValues={{
+                    
+                    remember: true,
+                  }}
+                  autoComplete="off"
+                >
+                  <Form.Item 
+                    label="Username"
+                    name="username"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your username!',
+                      },
+                    ]}
+                  >
+                    <Input value={formData.username} />
+                  </Form.Item>
+                  <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your password!',
+                      },
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item
+                    wrapperCol={{
+                      offset: 8,
+                      span: 16,
+                    }}
+                  >
+                  </Form.Item>
+                </Form>
               </Modal>
             </Space>
           )}
