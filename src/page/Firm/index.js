@@ -1,9 +1,11 @@
 import React from 'react'
 import { Space, Table, Tag , Input,Button } from 'antd';
+import {companySelect} from '../../api/company'
 const { Column, ColumnGroup } = Table;
 // import axios from "axios"
-const api = {
-}
+const companyData = companySelect()
+
+
 // const data  = axios.get(api).then(res => res.data);
 // console.log(data)
 
@@ -34,10 +36,11 @@ export default function Firm() {
         pagination={{}}
       >
         <Column title="id" dataIndex='id' key="id" />
-        <Column title="公司名" dataIndex='公司名' key="name" />
-        <Column title="上级公司编号" dataIndex='上级公司编号' key="上级公司编号" />
-        <Column title="创建时间" dataIndex='创建时间' key="创建时间" />
-        <Column title="修改时间" dataIndex='修改时间' key="修改时间" />
+        <Column title="公司名" dataIndex='companyname' key="companyname" />
+        <Column title="上级公司编号" dataIndex='parentId' key="parentId" />
+        <Column title="公司简述" dataIndex='description' key="description" />
+        <Column title="层级" dataIndex='level' key="level" />
+        <Column title="类型" dataIndex='type' key="type" />
         <Column
           title="操作"
           key="action"
