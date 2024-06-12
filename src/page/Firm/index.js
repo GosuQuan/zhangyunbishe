@@ -66,7 +66,7 @@ export default function Firm() {
       <Input size="large" placeholder="搜索" style={{ width: '300px', marginBottom: '15px' }} />
       <Button type='default' style={{ height: '39.6px' }}>🔍搜索</Button>
       <Button type='primary' style={{ height: '39.6px', marginLeft: '100px' }} onClick={showRegisterModal}>新增</Button>
-      <Modal open={registerModalOpen} onOk={handleRegisterOk} onCancel={handleRegisterCancel}>
+      <Modal title="新增公司违章分析"open={registerModalOpen} onOk={handleRegisterOk} onCancel={handleRegisterCancel}>
         <Form
          form={registerForm}
           name="basic"
