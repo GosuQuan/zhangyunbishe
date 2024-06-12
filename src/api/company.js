@@ -5,22 +5,22 @@ export const companyInsert = async (company) => {
     return data;
 }
 export const companyDelete = async (companyId) => {
-    const data = await axios.delete(baseURL + "company/delete?id=" + companyId).then(res => res.data.data).catch(err=>console.log(err))
+    const data = await axios.delete(baseURL + "company/delete?id=" + companyId).then(res => res.data.data).catch(err => console.log(err))
     return data;
 }
-export const companyUpdate = async  (company) => {
-    const data = await axios.put(baseURL + "company/update", company).then(res=>res.data).catch(err => console.log(err))
+export const companyUpdate = async (company) => {
+    const data = await axios.put(baseURL + "company/update", company).then(res => res.data).catch(err => console.log(err))
     return data;
 }
-export const companySelect = async() => {
-    const data = await axios.get(baseURL + "company/list").then(res=>res.data).catch(err => console.log(err))
+export const companySelect = async () => {
+    const data = await axios.get(baseURL + "company/list").then(res => res.data).catch(err => console.log(err))
     return data
 }
 export const searchCompany = async (param) => {
-    if(!param){return companySelect()}
+    if (!param) { return companySelect() }
     let data = await axios.get(baseURL + "company/list?id=" + param).then(res => res.data).catch(err => console.log(err))
-    if(!data){
-        data =  await axios.get(baseURL + "company/list?companyName=" + param).then(res => res.data).catch(err => console.log(err))
+    if (data.length === 0) {
+        data = await axios.get(baseURL + "company/list?companyName=" + param).then(res => res.data).catch(err => console.log(err))
     }
     return data;
 }
